@@ -4,34 +4,46 @@ import (
 	"github.com/golubkovden/onboarding/pkg/coffee"
 )
 
-type facade struct {
-	cm coffeemachine
-	n  notifier
+type catalog interface {
+	Get(name string) (coffee.Recipe, error)
 }
 
-type coffeemachine interface {
-	Validate(name string) error
-	Make(name string) *coffee.Drink
+type grinder interface {
+	Grind(count int) coffee.GroundCoffee
 }
 
-type notifier interface {
-	Notify(drink *coffee.Drink)
-	Error(name string, err error)
+type dripper interface {
+	Drip(g coffee.GroundCoffee, water int) (coffee int)
 }
 
-func (f *facade) Make(name string) (*coffee.Drink, error) {
-	err := f.cm.Validate(name)
+// Coffeemaker defines methods of brewing coffee
+type Coffeemaker interface {
+	// Make creates cup of coffee
+	Make(name string) (coffee.Drink, error)
+}
+
+type coffeemaker struct {
+	grinder grinder
+	dripper dripper
+	catalog catalog
+}
+
+func (c *coffeemaker) Make(name string) (drink coffee.Drink, err error) {
+	r, err := c.catalog.Get(name)
 	if err != nil {
-		f.n.Error(name, err)
-		return nil, err
+		return
 	}
 
-	c := f.cm.Make(name)
-	f.n.Notify(c)
+	g := c.grinder.Grind(r.CoffeeCount)
+	v := c.dripper.Drip(g, r.WatterCount)
 
-	return c, nil
+	drink.Name = r.Name
+	drink.Volume = v
+
+	return
 }
 
-func NewFacade(machine coffeemachine, notifier notifier) *facade {
-	return &facade{cm: machine, n: notifier}
+// NewCoffeemaker returns a new Coffeemaker instance
+func NewCoffeemaker(catalog catalog, grinder grinder, dripper dripper) Coffeemaker {
+	return &coffeemaker{catalog: catalog, grinder: grinder, dripper: dripper}
 }

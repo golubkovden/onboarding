@@ -1,28 +1,34 @@
 package main
 
 import (
-	"github.com/golubkovden/onboarding/internal/coffeemachine"
+	"fmt"
+
+	"github.com/golubkovden/onboarding/internal/catalog"
+	"github.com/golubkovden/onboarding/internal/dripper"
 	"github.com/golubkovden/onboarding/internal/facade"
-	"github.com/golubkovden/onboarding/internal/notifier"
+	"github.com/golubkovden/onboarding/internal/grinder"
+	"github.com/golubkovden/onboarding/pkg/coffee"
 )
 
 func main() {
-	available := []string{"espresso", "cappuccino"}
-	if err := run(available); err != nil {
+	recipes := []coffee.Recipe{
+		{
+			Name:        "espresso",
+			CoffeeCount: 25,
+			WatterCount: 50,
+		},
+	}
+
+	f := facade.NewCoffeemaker(
+		catalog.NewCatalog(recipes),
+		grinder.NewGrinder(),
+		dripper.NewDripper(),
+	)
+
+	drink, err := f.Make("espresso")
+	if err != nil {
 		panic(err)
 	}
-}
 
-func run(available []string) error {
-	cm := coffeemachine.New(available)
-	n := notifier.NewLogNotifier()
-	machine := facade.NewFacade(cm, n)
-
-	_, err := machine.Make("espresso")
-	if err != nil {
-		return err
-	}
-
-	_, err = machine.Make("cappuccino")
-	return err
+	fmt.Printf("Your %s is ready", drink.Name)
 }
