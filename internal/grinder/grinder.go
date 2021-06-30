@@ -1,19 +1,18 @@
 package grinder
 
 import (
-	"github.com/golubkovden/onboarding/pkg/coffee"
+	v1 "github.com/golubkovden/onboarding/internal/api/v1"
 )
 
 // Grinder defines methods for grind coffee beans
 type Grinder interface {
-	// Grind coffee beans into grounded one
-	Grind(count int) coffee.GroundCoffee
+	Grind(count int) v1.GroundCoffee
 }
 
 type grinder struct{}
 
-func (g *grinder) Grind(count int) coffee.GroundCoffee {
-	return coffee.GroundCoffee{Amount: count}
+func (g *grinder) Grind(count int) v1.GroundCoffee {
+	return v1.GroundCoffee{Amount: count}
 }
 
 // NewGrinder returns a new Grinder instance

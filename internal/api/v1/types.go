@@ -1,4 +1,4 @@
-package coffee
+package v1
 
 // Drink is result of coffee maker
 type Drink struct {

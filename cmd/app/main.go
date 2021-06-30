@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 
+	v1 "github.com/golubkovden/onboarding/internal/api/v1"
 	"github.com/golubkovden/onboarding/internal/catalog"
 	"github.com/golubkovden/onboarding/internal/dripper"
 	"github.com/golubkovden/onboarding/internal/facade"
 	"github.com/golubkovden/onboarding/internal/grinder"
-	"github.com/golubkovden/onboarding/pkg/coffee"
 )
 
 func main() {
-	recipes := []coffee.Recipe{
+	recipes := []v1.Recipe{
 		{
 			Name:        "espresso",
 			CoffeeCount: 25,
@@ -24,7 +24,6 @@ func main() {
 		grinder.NewGrinder(),
 		dripper.NewDripper(),
 	)
-
 	drink, err := f.Make("espresso")
 	if err != nil {
 		panic(err)

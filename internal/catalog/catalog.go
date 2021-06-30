@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/golubkovden/onboarding/pkg/coffee"
+	v1 "github.com/golubkovden/onboarding/internal/api/v1"
 )
 
 var (
@@ -13,25 +13,25 @@ var (
 
 // Catalog defines methods for resolving recipe of drink
 type Catalog interface {
-	// Get recipe by name
-	Get(name string) (coffee.Recipe, error)
+	Get(name string) (v1.Recipe, error)
 }
 
 type catalog struct {
-	recipes []coffee.Recipe
+	recipes []v1.Recipe
 }
 
-func (c *catalog) Get(name string) (coffee.Recipe, error) {
-	for _, recipe := range c.recipes {
-		if strings.EqualFold(recipe.Name, name) {
-			return recipe, nil
+func (c *catalog) Get(name string) (recipe v1.Recipe, err error) {
+	for _, r := range c.recipes {
+		if strings.EqualFold(r.Name, name) {
+			recipe = r
+			return
 		}
 	}
-
-	return coffee.Recipe{}, ErrRecipeNotFound
+	err = ErrRecipeNotFound
+	return
 }
 
 // NewCatalog returns a new Catalog instance
-func NewCatalog(recipes []coffee.Recipe) Catalog {
+func NewCatalog(recipes []v1.Recipe) Catalog {
 	return &catalog{recipes: recipes}
 }
