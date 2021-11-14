@@ -14,10 +14,10 @@ func main() {
 		character v1.Hero
 	)
 	d = director.NewDirector(hero.NewWizardBuilder())
-	character = d.CreateCharacter("Gandalf")
+	character = d.CreateHero("Gandalf")
 	fmt.Printf("Hero created: %+v\n", character)
 
 	d = director.NewDirector(hero.NewWarriorBuilder())
-	character = d.CreateCharacter("Aragorn")
+	character = d.CreateHero("Aragorn")
 	fmt.Printf("Hero created: %+v\n", character)
 }

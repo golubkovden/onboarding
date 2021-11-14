@@ -12,14 +12,14 @@ type builder interface {
 
 // Director manages creation of heroes
 type Director interface {
-	CreateCharacter(name string) (hero v1.Hero)
+	CreateHero(name string) (hero v1.Hero)
 }
 
 type director struct {
 	builder builder
 }
 
-func (d *director) CreateCharacter(name string) v1.Hero {
+func (d *director) CreateHero(name string) v1.Hero {
 	d.builder.NewHero(name)
 	d.builder.BuildRace()
 	d.builder.BuildClass()
