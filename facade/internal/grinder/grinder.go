@@ -1,7 +1,7 @@
 package grinder
 
 import (
-	v1 "github.com/golubkovden/onboarding/internal/api/v1"
+	"github.com/golubkovden/onboarding/facade/internal/api/v1"
 )
 
 // Grinder defines methods for grind coffee beans

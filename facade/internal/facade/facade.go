@@ -1,7 +1,7 @@
 package facade
 
 import (
-	v1 "github.com/golubkovden/onboarding/internal/api/v1"
+	"github.com/golubkovden/onboarding/facade/internal/api/v1"
 )
 
 type catalog interface {

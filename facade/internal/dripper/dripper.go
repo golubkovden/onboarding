@@ -3,7 +3,7 @@ package dripper
 import (
 	"fmt"
 
-	v1 "github.com/golubkovden/onboarding/internal/api/v1"
+	"github.com/golubkovden/onboarding/facade/internal/api/v1"
 )
 
 // Dripper defines methods for mixing water and ground coffee

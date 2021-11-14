@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	v1 "github.com/golubkovden/onboarding/internal/api/v1"
-	"github.com/golubkovden/onboarding/internal/catalog"
-	"github.com/golubkovden/onboarding/internal/dripper"
-	"github.com/golubkovden/onboarding/internal/facade"
-	"github.com/golubkovden/onboarding/internal/grinder"
+	"github.com/golubkovden/onboarding/facade/internal/api/v1"
+	"github.com/golubkovden/onboarding/facade/internal/catalog"
+	"github.com/golubkovden/onboarding/facade/internal/dripper"
+	"github.com/golubkovden/onboarding/facade/internal/facade"
+	"github.com/golubkovden/onboarding/facade/internal/grinder"
 )
 
 func main() {
